@@ -67,16 +67,16 @@ sort.student = function(stud, x= diag(4)){
   
   #Return Appropriate Sorting
   if (index == 1){
-    class(stud) = c(class(j),"GRYFFINDOR")
+    class(stud) = c(class(stud),"GRYFFINDOR")
     return(stud)
   }  else if (index == 2){
-    class(stud) = c(class(j),"SLYTHERIN")
+    class(stud) = c(class(stud),"SLYTHERIN")
     return(stud)
   }else if (index == 3){
-    class(stud) = c(class(j),"RAVENCLAW")
+    class(stud) = c(class(stud),"RAVENCLAW")
     return(stud)
   }else if (index == 4){
-    class(stud) = c(class(j),"HUFFLEPUFF")
+    class(stud) = c(class(stud),"HUFFLEPUFF")
     return(stud)
   }
 }
@@ -86,12 +86,56 @@ k = createStudent("John")
 k
 k = sort(k)
 k
-class(stud)
 a = diag(4) 
 sort.student(j,a)
 
 
+# Create 4 Enviornments, each representing a dorm for each house
+Gryffindor_Tower = new.env()
+Black_lake = new.env()
+Ravenclaw_Tower = new.env()
+Basement = new.env()
 
 
+#Crate Generic Curfew Function
+curfew = function (x){
+  UseMethod("curfew",x)
+}
 
+#Create Curfew Method for each house that assigns student to appropriate environment/dorm
+#Input: Student Object to be assigned to a class
+# No output
+#Note: assigning based on name of student to ensure students are not overwritten in environment
+curfew.GRYFFINDOR = function(stud){
+  assign(stud$name,stud,envir =Gryffindor_Tower )
+  
+}
+
+curfew.SLYTHERIN = function(stud){
+  assign(stud$name,stud,envir =Black_lake )
+}
+
+curfew.RAVENCLAW = function(stud){
+  assign(stud$name,stud,envir =Ravenclaw_Tower )
+
+}
+
+curfew.HUFFLEPUFF = function(stud){
+  assign(stud$name,stud,envir =Basement )
+ 
+}
+
+#Test
+a = sort(createStudent("amy"))
+b = sort(createStudent("bob"))
+c = sort(createStudent("charles"))
+d = sort(createStudent("dan"))
+curfew(a)
+curfew(b)
+curfew(c)
+curfew(d)
+ls(Gryffindor_Tower)
+ls(Black_lake)
+ls(Ravenclaw_Tower)
+ls(Basement)
 
